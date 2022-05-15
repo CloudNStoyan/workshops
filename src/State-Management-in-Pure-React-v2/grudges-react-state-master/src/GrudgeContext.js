@@ -9,23 +9,18 @@ const GRUDGE_ACTIONS = {
   GRUDGE_FORGIVE: 'GRUDGE_FORGIVE'
 };
 
-const reducer = (state = [], action) => {
+const reducer = (state, action) => {
   if (action.type === GRUDGE_ACTIONS.GRUDGE_ADD) {
-    return [
-      {
-        id: id(),
-        ...action.payload
-      },
-      ...state
-    ];
+    return [action.payload, ...state];
   }
 
   if (action.type === GRUDGE_ACTIONS.GRUDGE_FORGIVE) {
     return state.map((grudge) => {
-      if (grudge.id === action.payload.id) {
-        return { ...grudge, forgiven: !grudge.forgiven };
+      if (grudge.id !== action.payload.id) {
+        return grudge;
       }
-      return grudge;
+
+      return { ...grudge, forgiven: !grudge.forgiven };
     });
   }
 
@@ -41,7 +36,9 @@ export const GrudgeProvider = ({ children }) => {
         type: GRUDGE_ACTIONS.GRUDGE_ADD,
         payload: {
           person,
-          reason
+          reason,
+          forgiven: false,
+          id: id()
         }
       });
     },
@@ -60,9 +57,9 @@ export const GrudgeProvider = ({ children }) => {
     [dispatch]
   );
 
+  const value = { grudges, addGrudge, toggleForgiveness };
+
   return (
-    <GrudgeContext.Provider value={{ grudges, addGrudge, toggleForgiveness }}>
-      {children}
-    </GrudgeContext.Provider>
+    <GrudgeContext.Provider value={value}>{children}</GrudgeContext.Provider>
   );
 };
