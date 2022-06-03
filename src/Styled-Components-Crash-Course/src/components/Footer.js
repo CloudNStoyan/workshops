@@ -1,7 +1,7 @@
 import { Container } from "./styled/Container.styled";
 import { Flex } from "./styled/Flex.styled";
 import { StyledFooter } from "./styled/Footer.styled";
-import {SocialIcons} from './SocialIcons';
+import SocialIcons from './SocialIcons';
 
 export default function Footer() {
     return (
