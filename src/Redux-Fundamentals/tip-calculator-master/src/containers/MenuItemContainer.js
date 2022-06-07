@@ -1,12 +1,18 @@
 import { MenuItem } from '../components/MenuItem';
 import { connect } from 'react-redux';
-import { removeMenuItem } from '../store/items/actions';
+import {
+  removeMenuItem,
+  updatePrice,
+  updateQuantity
+} from '../store/items/actions';
 import { bindActionCreators } from 'redux';
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators(
     {
-      remove: () => removeMenuItem(ownProps.uuid)
+      remove: () => removeMenuItem(ownProps.uuid),
+      updatePrice: (price) => updatePrice(ownProps.uuid, price),
+      updateQuantity: (quantity) => updateQuantity(ownProps.uuid, quantity)
     },
     dispatch
   );
