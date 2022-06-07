@@ -6,6 +6,14 @@ import {
   updateQuantity
 } from '../store/items/actions';
 import { bindActionCreators } from 'redux';
+import { selectItemTotal } from '../store/items/selectors';
+
+const mapStateToProps = (state, props) => {
+  const total = selectItemTotal(state, props);
+  return {
+    total
+  };
+};
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return bindActionCreators(
@@ -18,4 +26,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   );
 };
 
-export const MenuItemContainer = connect(null, mapDispatchToProps)(MenuItem);
+export const MenuItemContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MenuItem);
