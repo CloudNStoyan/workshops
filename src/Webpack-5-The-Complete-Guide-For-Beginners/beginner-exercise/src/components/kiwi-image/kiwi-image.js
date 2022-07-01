@@ -1,0 +1,15 @@
+import Kiwi from './kiwi.jpg'
+import './kiwi-image.scss';
+
+class KiwiImage {
+    render() {
+        const img = document.createElement('img');
+        img.src = Kiwi;
+        img.alt = 'Kiwi';
+        img.classList.add('kiwi-image');
+
+        document.body.appendChild(img);
+    }
+}
+
+export default KiwiImage;
